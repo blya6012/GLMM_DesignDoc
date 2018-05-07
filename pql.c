@@ -18,8 +18,12 @@ void fnInnerTrust (double *mypar, double *Y, double *X, double *Z, double *A, in
 		s[i] = -i;
 	}
 
+<<<<<<< HEAD
 	n_trials = ntrials;	
 
+=======
+	
+>>>>>>> 0e3b027f1603db27653e26f4476a966b7413f4ef
 	/*eta<-X%*%beta+Z%*%A%*%s*/
 	double *x = Calloc(*X, double);
 	double *y = Calloc(*Y, double);
@@ -36,9 +40,14 @@ void fnInnerTrust (double *mypar, double *Y, double *X, double *Z, double *A, in
 	if(family.mcml$family.glmm=="poisson.glmm"){mu<-family.mcml$cp(eta)}
 	if(family.mcml$family.glmm=="binomial.glmm"){mu<-family.mcml$cp(eta, ntrials)}*/
 	
+<<<<<<< HEAD
 	/* Being with family = Bernouli */
 	cp3(eta, n, 1, ntrials, mu); 
 
+=======
+	if (family.mcml = "bernoulli.glmm"){
+		mu = family.mcml
+>>>>>>> 0e3b027f1603db27653e26f4476a966b7413f4ef
 
 	/*if(family.mcml$family.glmm=="bernoulli.glmm"){
 		value<-.C(C_elc, as.double(Y), as.double(X), as.integer(nrow(X)), as.integer(ncol(X)), as.double(eta),as.integer(1),as.integer(ntrials), value=double(1), gradient=double(ncol(X)), hessian=double((ncol(X)^2)))$value-.5*s%*%s}
@@ -48,6 +57,7 @@ void fnInnerTrust (double *mypar, double *Y, double *X, double *Z, double *A, in
 		value<-.C(C_elc, as.double(Y), as.double(X), as.integer(nrow(X)), as.integer(ncol(X)), as.double(eta), as.integer(3), as.integer(ntrials), value=double(1), gradient=double(ncol(X)), hessian=double((ncol(X)^2)))$value-.5*s%*%s}*/
 
 
+<<<<<<< HEAD
 	double value = elc(y, x, n, nbeta, eta, 1,  n_trials, 1.0, nbeta, nbeta*nbeta) - 0.5*matvecmult(s, nbeta, s, nbeta, val);
 
 	
@@ -86,3 +96,8 @@ void fnInnerTrust (double *mypar, double *Y, double *X, double *Z, double *A, in
 
 
 
+=======
+
+}
+
+>>>>>>> 0e3b027f1603db27653e26f4476a966b7413f4ef
