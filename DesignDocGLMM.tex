@@ -47,12 +47,12 @@
 \maketitle{}
 
 \begin{abstract}
-This design document explains the process of transfering the \texttt{pql} function from R to C. This is being done to make the \texttt{glmm} package more efficient and faster.
+This design document explains the process of transfering the \texttt{pql} function from R to C. This is being done to make the \texttt{glmm} package more efficient and faster. The function will be transfered to C in two separate parts: the inner optimization and the outer optimization. 
 \end{abstract}
 
-\section{Process}
+\section{.C}
+To transfer the \texttt{pql} package to C, the \texttt{.C} command will be used. This command takes all the arguments needed for the C function as inputs, and calls the C file. The C file is then executed, and at completeion, returns the results back to R. 
 
-The PQL function calculates the penalized quasi-likelihood estimates, which helps generate the random effects. To make the \texttt{glmm} package faster, the PQL function will be coded in C as opposed to R. First, the Inner funciton will be coded in C, and then the Outer function. Using the .C package, R will call C to preform these calculations, and then the results will be returned to R. 
-
-
+\section {Inner}
+The first part to be transfered to C is the inner function. The inner function caluclates the Hessian matrix, which is then used in the outer function optimization.
 \end{document}
