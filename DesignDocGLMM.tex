@@ -51,8 +51,8 @@ This design document explains the process of transfering the \texttt{pql} functi
 \end{abstract}
 
 \section{.C}
-To transfer the \texttt{pql} package to C, the \texttt{.C} command will be used. This command takes all the arguments needed for the C function as inputs, and calls the C file. The C file is then executed, and at completeion, returns the results back to R. 
+To transfer the \texttt{pql} package to C, the \texttt{.C} command will be used. This command takes all the arguments needed for the C function as inputs, and calls the C file. The C file is then executed, and at completeion, returns the results back to R. The first input for this command is the name of the C function. The following arguments are each of the inputs for the C function, with the type of the variable specified. 
 
 \section {Inner}
-The first part to be transfered to C is the inner function. The inner function caluclates the Hessian matrix, which is then used in the outer function optimization.
+The first part to be transfered to C is the inner function. The inner function caluclates the Hessian matrix, which is then used in the outer function optimization. This function has parameters mypar, Y, X, Z, A, family.mcml, nbeta, cache, and ntrials. X, Y, and Z are the columns x, y, and z in the mcml model. A is a diagonal matrix comprised of the sum of eek and sigma, calculated in the outer function. The family of the data is specified by the input family.mcml, nbeta is the length of X, and ntrials specifies the number of trials, needed for the binomial case.   
 \end{document}
