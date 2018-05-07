@@ -47,12 +47,16 @@
 \maketitle{}
 
 \begin{abstract}
-This design document explains the process of transfering the \texttt{pql} function from R to C. This is being done to make the \texttt{glmm} package more efficient and faster. The function will be transfered to C in two separate parts: the inner optimization and the outer optimization. 
+This design document explains the process of transfering the \texttt{pql} function from R to C. This is being done to make the \texttt{glmm} package more efficient and faster. The function will be transfered to C in two separate parts: the inner function and the outer function. All parts not in either of these two functions will remain in R as few calculations occur in these parts so the time difference would be negligible.  
 \end{abstract}
 
 \section{.C}
 To transfer the \texttt{pql} package to C, the \texttt{.C} command will be used. This command takes all the arguments needed for the C function as inputs, and calls the C file. The C file is then executed, and at completeion, returns the results back to R. The first input for this command is the name of the C function. The following arguments are each of the inputs for the C function, with the type of the variable specified. 
 
-\section {Inner}
-The first part to be transfered to C is the inner function. The inner function caluclates the Hessian matrix, which is then used in the outer function optimization. This function has parameters mypar, Y, X, Z, A, family.mcml, nbeta, cache, and ntrials. X, Y, and Z are the columns x, y, and z in the mcml model. A is a diagonal matrix comprised of the sum of eek and sigma, calculated in the outer function. The family of the data is specified by the input family.mcml, nbeta is the length of X, and ntrials specifies the number of trials, needed for the binomial case.   
+\section {Inner Function}
+The first part to be transfered to C is the inner function. The inner function caluclates the value, the Gradient, and the Hessian, which are then used in the outer function optimization. This function has parameters mypar, Y, X, Z, A, family.mcml, nbeta, cache, and ntrials. X, Y, and Z are the columns x, y, and z in the mcml model. A is a diagonal matrix comprised of the sum of eek and sigma, calculated in the outer function. The family of the data is specified by the input family.mcml, nbeta is the length of X, and ntrials specifies the number of trials which is needed for the binomial case. From R, C will be called to complete all the calculations necessary, and the resulting value, Gradient, and Hessian will be returned to R. 
+
+\section {Outer Function}
+The outer function uses the \texttt{trust} command in R to optimize the values. This command will remain in R, but the calculations needed to get the parameters will be transfered to C to make the process faster. After the necessary calculations are made, the results will be brought back to R and the optimization will be performed. 
+
 \end{document}
